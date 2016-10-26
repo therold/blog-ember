@@ -13,7 +13,9 @@
       {{textarea value=body id="body" class="form-control" rows=8 required="required"}}
     </div>
     <button class="btn btn-warning">Save changes</button>
+    <button class="btn btn-default" {{action 'cancelUpdate'}}>Cancel</button>
   </form>
   {{else}}
     <button class="btn btn-warning" {{action 'showUpdate'}}>Modify Post</button>
+    <button class="btn btn-danger" {{action 'delete' post}}>Delete post</button>
   {{/if}}
