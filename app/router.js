@@ -12,6 +12,7 @@ Router.map(function() {
   this.route('new-post');
   this.route('post', {path: '/post/:post_id'});
   this.route('all-posts');
+  this.route('category', {path: '/category/:category_name'});
 });
 
 export default Router;

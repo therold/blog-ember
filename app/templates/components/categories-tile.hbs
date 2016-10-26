@@ -1,4 +1,4 @@
 <p>Categories:
 {{#each post.categories as |category|}}
-  {{category.name}}
+  {{#link-to 'category' category.name}}{{category.name}}{{/link-to}}
 {{/each}}</p>
