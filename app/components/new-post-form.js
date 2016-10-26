@@ -9,7 +9,8 @@ export default Ember.Component.extend({
         body: this.get('body'),
         date: new Date()
       };
-      this.sendAction('save', params);
+      var categories = this.get('categories')
+      this.sendAction('save', params, categories);
       this.set('title', '');
       this.set('author', '');
       this.set('body', '');
