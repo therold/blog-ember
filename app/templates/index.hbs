@@ -1,4 +1,6 @@
 <h1>Ember blog</h1>
 {{#each model as |post|}}
-  {{post-tile post=post}}
+  {{#link-to 'post' post.id}}
+    {{post-tile post=post}}
+  {{/link-to}}
 {{/each}}
