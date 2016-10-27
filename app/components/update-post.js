@@ -1,12 +1,19 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+
   isUpdateShowing: false,
   removeCategories: Ember.A([]),
   didReceiveAttrs() {
     this.title = this.get('post.title');
     this.author = this.get('post.author');
     this.body = this.get('post.body');
+    // this.get('post.categories')
+    //   .map(category => {
+    //     return category.get('id');
+    //   }).forEach(id => {
+    //     this.removeCategories.addObject(id);
+    //   });
   },
   actions: {
     removeCategory(category) {
@@ -26,13 +33,15 @@ export default Ember.Component.extend({
       this.set('body', this.get('post.body'));
     },
     update(post) {
+      var categories = post.get('categories');
+      // post.get('categories').map(category => console.log(category.get('name')));
       var params = {
         title: this.get('title'),
         author: this.get('author'),
         body: this.get('body'),
       };
       this.set('isUpdateShowing', false);
-      this.sendAction('update', post, params);
+      this.sendAction('update', post, params, this.removeCategories);
     },
     delete(post) {
       if(confirm('Are you sure you want to delete this post?')) {

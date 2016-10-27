@@ -5,7 +5,13 @@ export default Ember.Route.extend({
     return this.store.findRecord('post', params.post_id);
   },
   actions: {
-    update(post, params) {
+    update(post, params, removeCategories) {
+      removeCategories.forEach(id => {
+        this.store.findRecord('category', id).then(category => {
+          post.get('categories').removeObject(category);
+          post.save();
+        });
+      });
       Object.keys(params).forEach(function(key) {
         post.set(key, params[key]);
       });
