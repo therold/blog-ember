@@ -10,19 +10,30 @@ export default Ember.Route.extend({
       var newPost = controller.store.createRecord('post', params);
       newPost.save()
         .then((post) => {
-          categories.split(' ').forEach(function(category) {
-            controller.store.query('categoryList', { orderBy: 'name', equalTo: category}).then(exists => {
-              if(!exists.objectAt(0)) {
-                var params = { name: category };
-                var newCategoryListItem = controller.store.createRecord('categoryList', params);
-                newCategoryListItem.save();
-              }
-            });
-            var params = { name: category, post: post };
-            var newCategory = controller.store.createRecord('category', params);
-            newCategory.save().then(function() {
-              return post.save();
-            });
+          var enteredCategories = categories.split(' ');
+          enteredCategories.forEach(function(category, i) {
+            if(!enteredCategories.slice(0, i).includes(category)) {
+              controller.store.query('category', { orderBy: 'name', equalTo: category}).then(queryResult => {
+                var savedCategory = queryResult.objectAt(0);
+                var params = { name: category, post: newPost };
+                if(!savedCategory) {
+                  // new category entered.
+                  var newCategoryItem = controller.store.createRecord('category', params);
+                  newPost.get('categories').addObject(newCategoryItem);
+                  newPost.save().then(() => {
+                    newCategoryItem.get('posts').addObject(newPost);
+                    newCategoryItem.save();
+                  });
+                } else {
+                  // existing category entered.
+                  newPost.get('categories').addObject(savedCategory);
+                  newPost.save().then(() => {
+                    savedCategory.get('posts').addObject(newPost);
+                    savedCategory.save();
+                  })
+                }
+              });
+            }
           });
         });
       this.transitionTo('index');

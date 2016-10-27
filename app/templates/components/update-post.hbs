@@ -12,6 +12,16 @@
       <label for="body">Message</label>
       {{textarea value=body id="body" class="form-control" rows=8 required="required"}}
     </div>
+    <label>Categories</label>
+    <div class="categories">
+    {{#each post.categories as |category|}}
+      {{#if (array-contains removeCategories category.id)}}
+        <button {{action 'undoRemoveCategory' category}} class="btn btn-danger">{{category.name}}</button>
+      {{else}}
+        <button {{action 'removeCategory' category}} class="btn btn-default">{{category.name}}</button>
+      {{/if}}
+    {{/each}}
+    </div>
     <button class="btn btn-warning">Save changes</button>
     <button class="btn btn-default" {{action 'cancelUpdate'}}>Cancel</button>
   </form>

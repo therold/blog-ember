@@ -1,6 +1,7 @@
-
-
-{{#each model as |category|}}
-  {{category.post.title}}
-  {{post-tile post="post"}}
+<h1>Category: {{model.name}}</h1>
+{{#each model.posts as |post|}}
+  {{#link-to 'post' post.id}}
+    {{post-tile post=post}}
+    {{/link-to}}
+  {{categories-tile post=post}}
 {{/each}}

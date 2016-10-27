@@ -2,12 +2,20 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   isUpdateShowing: false,
+  removeCategories: Ember.A([]),
   didReceiveAttrs() {
     this.title = this.get('post.title');
     this.author = this.get('post.author');
     this.body = this.get('post.body');
   },
   actions: {
+    removeCategory(category) {
+      this.removeCategories.pushObject(category.get('id'));
+    },
+    undoRemoveCategory(category) {
+      var index = this.removeCategories.indexOf(category.get('id'));
+      this.removeCategories.removeAt(index);
+    },
     showUpdate() {
       this.set('isUpdateShowing', true);
     },
