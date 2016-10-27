@@ -28,6 +28,8 @@ export default Ember.Component.extend({
       history.back();
     },
     update(post) {
+      var newCategories = this.get("newCategories");
+      var removeCategories = this.removeCategories;
       var categories = post.get('categories');
       var params = {
         title: this.get('title'),
@@ -35,7 +37,7 @@ export default Ember.Component.extend({
         body: this.get('body'),
       };
       this.set('isUpdateShowing', false);
-      this.sendAction('update', post, params, this.removeCategories);
+      this.sendAction('update', post, params, removeCategories, newCategories);
     },
     delete(post) {
       if(confirm('Are you sure you want to delete this post?')) {
