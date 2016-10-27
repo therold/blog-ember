@@ -1,6 +1,10 @@
 {{#each comment as |comment|}}
-  <h4>{{comment.title}} <span class="glyphicon glyphicon-pencil"></span></h4>
-  <p>By {{comment.author}}, {{comment.date}}</p>
-  <p>{{comment.body}}</p>
-  <hr>
+  {{#if (eq commentToEdit comment.id)}}
+    {{update-comment cancel="cancelUpdate" update="update" comment=comment}}
+  {{else}}
+    <h4>{{comment.title}} <span class="glyphicon glyphicon-pencil" {{action 'showEdit' comment}}></span></h4>
+    <p>By {{comment.author}}, {{comment.date}}</p>
+    <p>{{comment.body}}</p>
+    <hr>
+  {{/if}}
 {{/each}}
