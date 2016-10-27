@@ -6,5 +6,5 @@ export default DS.Model.extend({
   author: DS.attr('string'),
   date: DS.attr('Date'),
   timestamp: DS.attr('number'),
-  categories: DS.belongsTo('post', { async: true })
+  post: DS.belongsTo('post', { async: true })
 });

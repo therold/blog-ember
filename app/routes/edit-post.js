@@ -38,8 +38,13 @@ export default Ember.Route.extend({
           });
         });
       });
-      post.destroyRecord();
-      this.transitionTo('index');
+      console.log(post);
+      var comment_deletions = post.get('comments').map(comment => {
+        return comment.destroyRecord();
+      });
+      Ember.RSVP.all(comment_deletions).then(() => {
+        return post.destroyRecord();
+      }).then(this.transitionTo('index'));
     }
   }
 });
