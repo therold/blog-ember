@@ -8,6 +8,7 @@ export default Ember.Component.extend({
     this.title = this.get('post.title');
     this.author = this.get('post.author');
     this.body = this.get('post.body');
+    this.removeCategories.clear();
     // this.get('post.categories')
     //   .map(category => {
     //     return category.get('id');

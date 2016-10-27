@@ -10,6 +10,13 @@ export default Ember.Route.extend({
         this.store.findRecord('category', id).then(category => {
           post.get('categories').removeObject(category);
           post.save();
+          category.get('posts').removeObject(post);
+          category.save().then(category => {
+            if(category.get('posts').get('length') === 0) {
+              // Category is now an orphan. Category has no associated posts.
+              category.destroyRecord();
+            }
+          });
         });
       });
       Object.keys(params).forEach(function(key) {
