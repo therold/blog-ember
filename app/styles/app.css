@@ -13,3 +13,13 @@ a:hover {
 .categories {
   margin-bottom: 15px;
 }
+
+.glyphicon {
+  display: none;
+  font-size: 0.75em;
+}
+
+h3:hover .glyphicon {
+  display: inline-block;
+
+}

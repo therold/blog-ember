@@ -13,6 +13,7 @@ Router.map(function() {
   this.route('post', {path: '/post/:post_id'});
   this.route('all-posts');
   this.route('category', {path: '/category/:category_name'});
+  this.route('edit-post', {path: '/edit-post/:post_id'});
 });
 
 export default Router;

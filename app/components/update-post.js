@@ -9,12 +9,6 @@ export default Ember.Component.extend({
     this.author = this.get('post.author');
     this.body = this.get('post.body');
     this.removeCategories.clear();
-    // this.get('post.categories')
-    //   .map(category => {
-    //     return category.get('id');
-    //   }).forEach(id => {
-    //     this.removeCategories.addObject(id);
-    //   });
   },
   actions: {
     removeCategory(category) {
@@ -31,16 +25,10 @@ export default Ember.Component.extend({
       this.set('isUpdateShowing', true);
     },
     cancelUpdate() {
-      this.set('isUpdateShowing', false);
-      this.set('isNewCategoriesShowing', false);
-      this.set('title', this.get('post.title'));
-      this.set('author', this.get('post.author'));
-      this.set('body', this.get('post.body'));
-      this.removeCategories.clear();
+      history.back();
     },
     update(post) {
       var categories = post.get('categories');
-      // post.get('categories').map(category => console.log(category.get('name')));
       var params = {
         title: this.get('title'),
         author: this.get('author'),
@@ -50,9 +38,9 @@ export default Ember.Component.extend({
       this.sendAction('update', post, params, this.removeCategories);
     },
     delete(post) {
-      // if(confirm('Are you sure you want to delete this post?')) {
+      if(confirm('Are you sure you want to delete this post?')) {
         this.sendAction('delete', post);
-      // }
+      }
     }
   }
 
