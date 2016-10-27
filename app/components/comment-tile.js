@@ -12,6 +12,9 @@ export default Ember.Component.extend({
     update(comment, params) {
       this.set('commentToEdit', null);
       this.sendAction('update', comment, params);
+    },
+    delete(comment) {
+      this.sendAction('delete', comment);
     }
   }
 });
