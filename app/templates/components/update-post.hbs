@@ -13,14 +13,34 @@
       {{textarea value=body id="body" class="form-control" rows=8 required="required"}}
     </div>
     <label>Categories</label>
-    <div class="categories">
-    {{#each post.categories as |category|}}
-      {{#if (array-contains removeCategories category.id)}}
-        <button {{action 'undoRemoveCategory' category}} class="btn btn-danger">{{category.name}}</button>
+    <div class="form-group">
+      <div class="categories input-group">
+
+      {{#if isNewCategoriesShowing}}
+        <span class="input-group-btn">
+          {{#each post.categories as |category|}}
+            {{#if (array-contains removeCategories category.id)}}
+              <button {{action 'undoRemoveCategory' category}} class="btn btn-danger">{{category.name}}</button>
+            {{else}}
+              <button {{action 'removeCategory' category}} class="btn btn-default">{{category.name}}</button>
+            {{/if}}
+          {{/each}}
+        </span>
+        {{input class="form-control"}}
       {{else}}
-        <button {{action 'removeCategory' category}} class="btn btn-default">{{category.name}}</button>
+        <span class="input-group-btn">
+          {{#each post.categories as |category|}}
+            {{#if (array-contains removeCategories category.id)}}
+              <button {{action 'undoRemoveCategory' category}} class="btn btn-danger">{{category.name}}</button>
+            {{else}}
+              <button {{action 'removeCategory' category}} class="btn btn-default">{{category.name}}</button>
+            {{/if}}
+          {{/each}}
+          <button {{action 'showNewCategories'}} class="btn btn-info">+</button>
+        </span>
       {{/if}}
-    {{/each}}
+
+      </div>
     </div>
     <button class="btn btn-warning">Save changes</button>
     <button class="btn btn-default" {{action 'cancelUpdate'}}>Cancel</button>

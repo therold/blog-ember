@@ -1,8 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-
   isUpdateShowing: false,
+  isNewCategoriesShowing: false,
   removeCategories: Ember.A([]),
   didReceiveAttrs() {
     this.title = this.get('post.title');
@@ -24,14 +24,19 @@ export default Ember.Component.extend({
       var index = this.removeCategories.indexOf(category.get('id'));
       this.removeCategories.removeAt(index);
     },
+    showNewCategories() {
+      this.set('isNewCategoriesShowing', true);
+    },
     showUpdate() {
       this.set('isUpdateShowing', true);
     },
     cancelUpdate() {
       this.set('isUpdateShowing', false);
+      this.set('isNewCategoriesShowing', false);
       this.set('title', this.get('post.title'));
       this.set('author', this.get('post.author'));
       this.set('body', this.get('post.body'));
+      this.removeCategories.clear();
     },
     update(post) {
       var categories = post.get('categories');
