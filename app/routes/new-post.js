@@ -1,9 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  model() {
-    return
-  },
   actions: {
     save(params, categories) {
       var controller = this;
@@ -30,13 +27,12 @@ export default Ember.Route.extend({
                   newPost.save().then(() => {
                     savedCategory.get('posts').addObject(newPost);
                     savedCategory.save();
-                  })
+                  });
                 }
               });
             }
           });
-        });
-      this.transitionTo('index');
+        }).then(() => this.transitionTo('index'));
     }
   }
 });

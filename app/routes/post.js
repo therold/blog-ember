@@ -10,6 +10,7 @@ export default Ember.Route.extend({
         this.store.findRecord('category', id).then(category => {
           post.get('categories').removeObject(category);
           post.save();
+          // remove the post's link to the category
           category.get('posts').removeObject(post);
           category.save().then(category => {
             if(category.get('posts').get('length') === 0) {
@@ -26,6 +27,17 @@ export default Ember.Route.extend({
       this.transitionTo('index');
     },
     delete(post) {
+      post.get('categories').then(categories => {
+        categories.forEach(category => {
+          category.get('posts').removeObject(category);
+          category.save().then(category => {
+            if(category.get('posts').get('length') === 0) {
+              // Category is now an orphan. Category has no associated posts.
+              category.destroyRecord();
+            }
+          });
+        });
+      });
       post.destroyRecord();
       this.transitionTo('index');
     }
