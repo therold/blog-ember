@@ -6,7 +6,5 @@ export default DS.Model.extend({
   author: DS.attr('string'),
   date: DS.attr('Date'),
   timestamp: DS.attr('number'),
-  categories: DS.hasMany('category', { async: true }),
-  tags: DS.hasMany('tag', { async: true }),
-  comments: DS.hasMany('comment')
+  categories: DS.belongsTo('post', { async: true })
 });

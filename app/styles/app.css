@@ -19,7 +19,8 @@ a:hover {
   font-size: 0.75em;
 }
 
-h3:hover .glyphicon {
+h3:hover .glyphicon,
+h4:hover .glyphicon {
   display: inline-block;
-
+  cursor: pointer;
 }
